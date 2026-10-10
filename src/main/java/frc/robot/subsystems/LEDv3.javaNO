@@ -1,0 +1,25 @@
+package frc.robot.subsystems;
+
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.AddressableLEDBufferView;
+import edu.wpi.first.wpilibj.LEDPattern;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+public class LEDv3 extends SubsystemBase {
+    public void LEDv3_INIT() {
+        public m_led = new AddressableLED(7);
+        m_ledBuffer = new AddressableLEDBuffer(96);
+        m_led.setLength(m_ledBuffer.getLength());
+        AddressableLEDBuffer m_buffer = new AddressableLEDBuffer(96);
+        AddressableLEDBufferView m_left = m_buffer.createView(0, 48);
+        AddressableLEDBufferView m_right = m_buffer.createView(49, 96);
+
+        LEDPattern red = LEDPattern.solid(Color.kRed);
+        LEDPattern red = LEDPattern.solid(Color.kRed);
+
+        red.applyTo(m_ledBuffer);
+        red.applyTo(m_ledBuffer);
+    }
+}
