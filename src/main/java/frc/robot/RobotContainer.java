@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 // import frc.robot.subsystems.LEDv2;
 import frc.robot.subsystems.driveSubSystem;
 import frc.robot.subsystems.turrentSubSystem;
+import frc.robot.subsystems.LEDv3;
 
 public class RobotContainer {
   public boolean slowmode = false;
@@ -31,10 +32,13 @@ public class RobotContainer {
   public final turrentSubSystem turrentSubSystem = new turrentSubSystem();
   //public final ledControllerSubSystem ledSystem = new ledControllerSubSystem();
   // public final LEDv2 lightSystem = new LEDv2();
+  public final LEDv3 lightSystem = new LEDv3();
   
   public RobotContainer() {
     driveSystem.driveInit();
     configureBindings();
+    lightSystem.LEDv3_INIT();
+
     // updateSmartDashboard();
   }
 
