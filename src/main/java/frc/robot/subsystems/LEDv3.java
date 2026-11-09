@@ -18,6 +18,8 @@ public class LEDv3 extends SubsystemBase {
 
     LEDPattern red = LEDPattern.solid(Color.kRed);
     LEDPattern green = LEDPattern.solid(Color.kGreen);
+    LEDPattern blue = LEDPattern.solid(Color.kBlue);
+    LEDPattern white = LEDPattern.solid(Color.kWhite);
     LEDPattern m_rainbow = LEDPattern.rainbow(255, 128);
     LEDPattern m_scrollingRainbow;
 
@@ -42,7 +44,11 @@ public class LEDv3 extends SubsystemBase {
             m_Led.setData(m_ledBuffer);
         }
         if (ledState == 3) {
-            green.applyTo(m_ledBuffer);
+            blue.applyTo(m_ledBuffer);
+            m_Led.setData(m_ledBuffer);
+        }
+        if (ledState == 4) {
+            white.applyTo(m_ledBuffer);
             m_Led.setData(m_ledBuffer);
         }
         if (ledState == 0 || ledState >= 5) {
