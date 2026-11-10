@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>T-Shirt Cannon Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">FRC Robot UI</p>
+          <h1>T-Shirt Cannon</h1>
+        </div>
+        <div class="status-pill" id="robotMode">--</div>
+      </header>
+
+      <section class="cards">
+        <article class="card">
+          <h2>Robot Status</h2>
+          <div class="stats-grid">
+            <div class="stat-box">
+              <span>Battery</span>
+              <strong id="batteryValue">--</strong>
+            </div>
+            <div class="stat-box">
+              <span>Drive</span>
+              <strong id="driveState">--</strong>
+            </div>
+            <div class="stat-box">
+              <span>Fire</span>
+              <strong id="fireState">--</strong>
+            </div>
+            <div class="stat-box">
+              <span>LED</span>
+              <strong id="ledState">--</strong>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>Controls</h2>
+          <div class="button-stack">
+            <button data-action="toggleSafety">Toggle Safety</button>
+            <button data-action="toggleSlowMode">Toggle Slow Mode</button>
+            <button data-action="toggleDrive">Toggle Drive</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>LED Mode</h2>
+          <div class="button-grid">
+            <button data-led="0">Auto</button>
+            <button data-led="1">Red</button>
+            <button data-led="2">Green</button>
+            <button data-led="3">Blue</button>
+            <button data-led="4">White</button>
+          </div>
+
+          <div class="rgb-panel">
+            <h3>Custom RGB</h3>
+            <div class="rgb-slider-group">
+              <label>R <input id="rgbR" type="range" min="0" max="255" value="255" /></label>
+              <label>G <input id="rgbG" type="range" min="0" max="255" value="0" /></label>
+              <label>B <input id="rgbB" type="range" min="0" max="255" value="255" /></label>
+            </div>
+            <div class="rgb-preview-row">
+              <div id="rgbPreview" class="rgb-preview"></div>
+              <button id="applyRgb" class="primary">Apply RGB</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>Debug</h2>
+          <ul class="debug-list">
+            <li><span>Left stick</span><strong id="leftStick">--</strong></li>
+            <li><span>Right stick</span><strong id="rightStick">--</strong></li>
+            <li><span>Slow value</span><strong id="slowValue">--</strong></li>
+            <li><span>Debug mode</span><strong id="debugState">--</strong></li>
+            <li><span>Fire disabled</span><strong id="fireDisabledState">--</strong></li>
+            <li><span>Force fire</span><strong id="forceFireState">--</strong></li>
+          </ul>
+        </article>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
