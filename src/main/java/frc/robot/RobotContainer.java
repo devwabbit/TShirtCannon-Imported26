@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -16,17 +17,21 @@ import frc.robot.subsystems.webSubsystem;
 import frc.robot.subsystems.LEDv3;
 
 public class RobotContainer {
-  public boolean slowmode = false;
-  public double slowmodeval = .25;
-  public boolean safetyFire = false;
-  public boolean antiRunaway = false;
-  XboxController controller = new XboxController(0);
+  public static boolean castingNewUpdateData = false;
+  public static boolean slowmode = false;
+  public static double slowmodeval = .25;
+  public static boolean safetyFire = false;
+  public static boolean antiRunaway = false;
+  public static XboxController controller = new XboxController(0);
+  public static double stickL = 0;
+  public static double stickR = 0;
+  public static double ledStatus = 0;
 
   //Debug Values
-  public boolean debug = false;
-  public boolean disableDrive = false;
-  public boolean disableFire = false;
-  public boolean setCannonSystemOpen = false;
+  public static boolean debug = false;
+  public static boolean disableDrive = false;
+  public static boolean disableFire = false;
+  public static boolean setCannonSystemOpen = false;
   
 
   public final driveSubSystem driveSystem = new driveSubSystem();
@@ -129,20 +134,26 @@ public class RobotContainer {
   }
 
   public void updateSmartDashboard() {
-    //Local Varibles to act as defaults
-    double lightOverideVal = 0.61;
-    boolean lightOverideBol = false;
+    if (!castingNewUpdateData) {
+      slowmodeval = SmartDashboard.getNumber(" Slow Mode Value ", slowmodeval);
+      ledStatus = SmartDashboard.getNumber(" LED STATE ", ledStatus);
+    } else {
+      castingNewUpdateData = false;
+    }
+
 
     // Check Changes
     // slowmode = SmartDashboard.getBoolean("Slow Mode", slowmode);
     // safetyFire = SmartDashboard.getBoolean("Safety Fire", safetyFire);
-    slowmodeval = SmartDashboard.getNumber(" Slow Mode Value ", slowmodeval);
+    
     // lightOverideVal = SmartDashboard.getNumber(" Overide Value ", lightOverideVal);
     // lightOverideBol = SmartDashboard.getBoolean(" light OverRide ", lightOverideBol);
-    lightSystem.ledState = SmartDashboard.getNumber(" LED STATE ", lightSystem.ledState);
+    
     // lightSystem.debug(lightOverideBol, lightOverideVal);
 
     // Set Data To Board
+    stickL = controller.getLeftY();
+    stickR = controller.getRightY();
     SmartDashboard.putNumber(" leftStick ", controller.getLeftY());
     SmartDashboard.putNumber(" rightStick ", controller.getRightY());
 
@@ -150,9 +161,9 @@ public class RobotContainer {
     SmartDashboard.putBoolean(" Slow Mode ", slowmode);
     SmartDashboard.putBoolean(" Safety Fire ", safetyFire);
     SmartDashboard.putNumber(" Slow Mode Value ", slowmodeval);
-    SmartDashboard.putBoolean(" light OverRide ", lightOverideBol);
-    SmartDashboard.putNumber(" Overide Value ", lightOverideVal);
-    SmartDashboard.putNumber(" LED STATE ", lightSystem.ledState);
+    // SmartDashboard.putBoolean(" light OverRide ", lightOverideBol);
+    // SmartDashboard.putNumber(" Overide Value ", lightOverideVal);
+    SmartDashboard.putNumber(" LED STATE ", ledStatus);
     // SmartDashboard.putNumber(" Turrent Rotations ", turrentSubSystem.returnRotation());
 
     debug = SmartDashboard.getBoolean(" Enable Debug ", debug);
@@ -173,6 +184,7 @@ public class RobotContainer {
     SmartDashboard.putBoolean(" Force Cannon Open  ", setCannonSystemOpen);
     turrentSubSystem.disableFire(disableFire);
     turrentSubSystem.forceFire(setCannonSystemOpen);
+    lightSystem.ledState = ledStatus;
   }
 
   public void antiDrift() {
@@ -181,5 +193,10 @@ public class RobotContainer {
       antiRunaway = true;
       System.err.println("Controller drift detected, replug in controller.");
     }
+  }
+
+  public static void castLEDvalue(double value) {
+    ledStatus = value;
+    castingNewUpdateData = true;
   }
 }

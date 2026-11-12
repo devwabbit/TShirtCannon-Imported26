@@ -137,4 +137,4 @@ document.getElementById('applyRgb').addEventListener('click', () => {
 
 syncRgbPreview();
 fetchStatus();
-setInterval(fetchStatus, 2000);
+setInterval(fetchStatus, 500);
